@@ -3,7 +3,6 @@ const axios = require("axios");
 const express = require("express");
 const mongoose = require("mongoose");
 
-// Load Post and Profile Model.
 const User = require("../models/User");
 
 const {
@@ -11,31 +10,33 @@ const {
   GraphQLObjectType,
   GraphQLString,
   GraphQLInt,
-  GraphQLList,
   GraphQLNonNull
 } = graphql;
 
+// Create User schema.
 const UserType = new GraphQLObjectType({
   name: "User",
   fields: {
+    id: { type: GraphQLInt },
     name: { type: GraphQLString },
-    email: { type: GraphQLString },
-    password: { type: GraphQLString },
-    avatar: { type: GraphQLInt }
+    email: { type: GraphQLString }
   }
 });
 
-const RootQuery = new GraphQLObjectType({
-  name: "RootQueryType",
+// Create rootQuery.
+const query = new GraphQLObjectType({
+  name: "query",
   fields: {
     user: {
       type: UserType,
       args: {
-        name: { type: GraphQLString }
+        id: { type: GraphQLInt },
+        name: { type: GraphQLString },
+        email: { type: GraphQLString }
       },
       resolve(parentValue, args) {
         return axios
-          .get(`http://localhost:3000/users/${args.id}`)
+          .get(`http://localhost:4000/users/${args.id}`)
           .then(response => response.data)
           .catch(err => response.data.err);
       }
@@ -49,6 +50,9 @@ const mutation = new GraphQLObjectType({
     addUser: {
       type: UserType,
       args: {
+        id: {
+          type: new GraphQLNonNull(GraphQLInt)
+        },
         name: {
           type: new GraphQLNonNull(GraphQLString)
         },
@@ -56,9 +60,9 @@ const mutation = new GraphQLObjectType({
           type: new GraphQLNonNull(GraphQLString)
         }
       },
-      resolve(parentValue, { name, email }) {
+      resolve(parentValue, { id, name, email }) {
         return axios
-          .post(`http://localhost:3000/users`, { name, email })
+          .post(`http://localhost:4000/users`, { id, name, email })
           .then(response => response.data)
           .catch(err => response.data.err);
       }
@@ -66,11 +70,11 @@ const mutation = new GraphQLObjectType({
     deleteUser: {
       type: UserType,
       args: {
-        name: { type: GraphQLNonNull(GraphQLString) }
+        id: { type: GraphQLNonNull(GraphQLString) }
       },
-      resolve(parentValue, { name }) {
+      resolve(parentValue, args) {
         return axios
-          .delete(`http://localhost:3000/users/${name}`)
+          .delete(`http://localhost:4000/users/${args.id}`)
           .then(response => response.data)
           .catch(err => response.data.err);
       }
@@ -90,7 +94,7 @@ const mutation = new GraphQLObjectType({
       },
       resolve(parentValue, args) {
         return axios
-          .patch(`http://localhost:3000/users/${args.name}`, args)
+          .patch(`http://localhost:4000/users/${args.name}`, args)
           .then(response => response.data)
           .catch(err => response.data.err);
       }
@@ -99,6 +103,6 @@ const mutation = new GraphQLObjectType({
 });
 
 module.exports = new GraphQLSchema({
-  query: RootQuery,
+  query,
   mutation
 });

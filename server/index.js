@@ -6,7 +6,7 @@ const bodyParser = require("body-parser");
 const schema = require("./schema/schema");
 
 const app = express();
-const port = process.env.PORT || "5000";
+const port = process.env.PORT || "4000";
 
 // Body parser middleware.
 app.use(bodyParser.urlencoded({ extended: false }));
