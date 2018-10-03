@@ -1,0 +1,25 @@
+{
+  "name": "graphql-mongodb-server",
+  "version": "1.0.0",
+  "description": "A GraphQL MongoDB server.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "nodemon ./server/index.js",
+    "client": "npm start --prefix client"
+  },
+  "keywords": [
+    "graphql",
+    "mongodb",
+    "express",
+    "react",
+    "boilerplate",
+    "server"
+  ],
+  "author": "Leonardo Maldonado",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^4.0.1",
+    "nodemon": "^1.18.4"
+  }
+}
