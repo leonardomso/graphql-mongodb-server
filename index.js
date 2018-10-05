@@ -10,15 +10,14 @@ import { mongoURI as db } from "./config/keys";
 const app = express();
 const PORT = process.env.PORT || "4000";
 
-// Body parser middleware.
-// app.use(bodyParser.urlencoded({ extended: false }));
-// app.use(bodyParser.json());
-
 // Connect to MongoDB with Mongoose.
 mongoose
   .connect(
     db,
-    { useNewUrlParser: true }
+    {
+      useCreateIndex: true,
+      useNewUrlParser: true
+    }
   )
   .then(() => console.log("MongoDB connected"))
   .catch(err => console.log(err));
