@@ -1,9 +1,10 @@
-const express = require("express");
-const expressGraphQL = require("express-graphql");
-const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
+import express from "express";
+import expressGraphQL from "express-graphql";
+import mongoose from "mongoose";
+import bodyParser from "body-parser";
 
-const schema = require("./graphql/");
+import schema from "./graphql/";
+import { mongoURI as db } from "./config/keys";
 
 const app = express();
 const port = process.env.PORT || "4000";
@@ -11,9 +12,6 @@ const port = process.env.PORT || "4000";
 // Body parser middleware.
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-
-// DB Config
-const db = require("./config/keys").mongoURI;
 
 // Connect to MongoDB with Mongoose.
 mongoose
