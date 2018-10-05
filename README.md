@@ -19,12 +19,6 @@ $ npm install
 $ npm run dev
 ```
 
-### Related Projects
-
-* [GraphQL.js](https://github.com/graphql/graphql-js) — A reference implementation of GraphQL for JavaScript
-* [React Starter Kit](https://github.com/kriasoft/react-starter-kit) — Isomorphic web app boilerplate (Node.js, GraphQL, React)
-* [Babel Starter Kit](https://github.com/kriasoft/babel-starter-kit) — JavaScript library boilerplate (ES2015+, Babel)
-
 ### License
 
 MIT (c) Leonardo Maldonado ([@leonardomso](https://twitter.com/leonardomso))
