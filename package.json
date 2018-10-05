@@ -4,9 +4,10 @@
   "description": "A GraphQL MongoDB server.",
   "main": "index.js",
   "scripts": {
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "server": "nodemon ./server/index.js",
-    "client": "npm start --prefix client"
+    "start": "node server.js",
+    "server": "nodemon --exec babel-node index.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "keywords": [
     "graphql",
@@ -16,7 +17,7 @@
     "boilerplate",
     "server"
   ],
-  "author": "Leonardo Maldonado",
+  "author": "Leonardo Maldonado <leonardomso11@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "@babel/cli": "^7.1.2",
@@ -26,7 +27,16 @@
     "@babel/plugin-transform-async-to-generator": "^7.1.0",
     "@babel/preset-env": "^7.1.0",
     "@babel/preset-stage-2": "^7.0.0",
+    "body-parser": "^1.18.3",
     "concurrently": "^4.0.1",
+    "express": "^4.16.3",
+    "express-graphql": "^0.6.12",
+    "graphql": "^14.0.2",
+    "graphql-tools": "^4.0.0",
+    "mongoose": "^5.3.1",
     "nodemon": "^1.18.4"
+  },
+  "devDependencies": {
+    "@babel/node": "^7.0.0"
   }
 }

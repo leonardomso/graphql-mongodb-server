@@ -3,7 +3,7 @@ const expressGraphQL = require("express-graphql");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 
-const schema = require("./schema/schema");
+const schema = require("./graphql/");
 
 const app = express();
 const port = process.env.PORT || "4000";
@@ -31,14 +31,5 @@ app.use(
     graphiql: true
   })
 );
-
-if (process.env.NODE_ENV === "production") {
-  // Set static folder.
-  app.use(express.static("client/build"));
-
-  app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-  });
-}
 
 app.listen(port, () => console.log(`Server running on port ${port}`));

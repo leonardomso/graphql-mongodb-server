@@ -2,6 +2,16 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
+  "keywords": [
+    "graphql",
+    "mongodb",
+    "express",
+    "react",
+    "boilerplate",
+    "server"
+  ],
+  "author": "Leonardo Maldonado <leonardomso11@gmail.com>",
+  "license": "MIT",
   "dependencies": {
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
