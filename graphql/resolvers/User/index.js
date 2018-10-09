@@ -1,25 +1,4 @@
-import User from "../../models/User";
-
-export const typeDef = `
-  type User {
-    id: String!
-    name: String!
-    email: String!
-  }
-
-  type Query {
-    user(id: String, name: String, email: String): User
-    users: [User]
-  }
-
-  type Mutation {
-    addUser(id: String!, name: String!, email: String!): User
-    editUser(id: String, name: String, email: String): User
-    deleteUser(id: String, name: String, email: String): User
-  }
-`;
-
-export const resolvers = {
+export default {
   Query: {
     user: (root, args) => {
       return new Promise((resolve, reject) => {
