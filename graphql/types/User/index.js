@@ -1,9 +1,9 @@
 export default `
-type User {
-    id: String!
-    name: String!
-    email: String!
-  }
+    type User {
+      id: String!
+      name: String!
+      email: String!
+    }
 
   type Query {
     user(id: String, name: String, email: String): User
