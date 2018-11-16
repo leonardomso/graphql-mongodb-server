@@ -1,3 +1,4 @@
+require("dotenv").config();
 import express from "express";
 import expressGraphQL from "express-graphql";
 import mongoose from "mongoose";
@@ -5,7 +6,7 @@ import bodyParser from "body-parser";
 import cors from "cors";
 
 import schema from "./graphql/";
-import { mongoURI as db } from "./config/keys";
+const { mongoURI: db } = process.env;
 
 const app = express();
 const PORT = process.env.PORT || "4000";
@@ -43,3 +44,4 @@ if (process.env.NODE_ENV === "production") {
 }
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+console.log(`go to: http://localhost:${PORT}/graphql for graphQL interface`);

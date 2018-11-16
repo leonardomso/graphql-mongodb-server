@@ -4,7 +4,7 @@
   "description": "A GraphQL MongoDB server.",
   "main": "index.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "npm run server",
     "server": "nodemon --exec babel-node index.js",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\""
@@ -30,6 +30,7 @@
     "body-parser": "^1.18.3",
     "concurrently": "^4.0.1",
     "cors": "^2.8.4",
+    "dotenv": "^6.1.0",
     "express": "^4.16.3",
     "express-graphql": "^0.6.12",
     "graphql": "^14.0.2",
