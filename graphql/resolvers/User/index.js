@@ -1,49 +1,37 @@
 import User from "../../../models/User";
+import { ObjectID } from "mongodb";
 
 export default {
   Query: {
-    user: (root, args) => {
-      return new Promise((resolve, reject) => {
-        User.findOne(args).exec((err, res) => {
-          err ? reject(err) : resolve(res);
-        });
-      });
+    login: async (root, { email, password }) => {
+      return await User.findOne({ email, password }).exec();
     },
-    users: () => {
-      return new Promise((resolve, reject) => {
-        User.find({})
-          .populate()
-          .exec((err, res) => {
-            err ? reject(err) : resolve(res);
-          });
-      });
+    user: async (root, { id: _id }) => {
+      return await User.findOne({ _id }).exec();
+    },
+    users: async () => {
+      const res = await User.find({})
+        .populate()
+        .exec();
+
+      return res.map(u => ({
+        id: u._id.toString(),
+        email: u.email,
+        password: u.password,
+        other: u.other
+      }));
     }
   },
   Mutation: {
-    addUser: (root, { id, name, email }) => {
-      const newUser = new User({ id, name, email });
-
-      return new Promise((resolve, reject) => {
-        newUser.save((err, res) => {
-          err ? reject(err) : resolve(res);
-        });
-      });
+    addUser: async (root, { email, password }) => {
+      const res = await new User({ email, password }).save();
+      return Object.assign({}, res, { id: res._id.toString() });
     },
-    editUser: (root, { id, name, email }) => {
-      return new Promise((resolve, reject) => {
-        User.findOneAndUpdate({ id }, { $set: { name, email } }).exec(
-          (err, res) => {
-            err ? reject(err) : resolve(res);
-          }
-        );
-      });
-    },
-    deleteUser: (root, args) => {
-      return new Promise((resolve, reject) => {
-        User.findOneAndRemove(args).exec((err, res) => {
-          err ? reject(err) : resolve(res);
-        });
-      });
+    setUserOther: async (root, { id, other }) => {
+      return await User.findOneAndUpdate(
+        { _id: ObjectID(id) },
+        { $set: { other } }
+      ).exec();
     }
   }
 };
