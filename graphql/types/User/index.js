@@ -1,19 +1,33 @@
 export default `
-    type User {
-      id: String
-      email: String!
-      password: String!,
-      other: String
-    }
+  type User {
+    _id: String!
+    name: String!
+    email: String!
+    age: Int!
+    posts: [Post!]!
+    comments: [Comment!]!
+  }
 
   type Query {
-    login(email: String!, password: String!): User
-    user(id: String!): User
-    users: [User]
+    user(_id: ID!): User!
+    users: [User!]!
   }
 
   type Mutation {
-    addUser(email: String!, password: String!): User
-    setUserOther(id: String, other: String!): User
+    createUser(user: CreateUserInput): User!
+    updateUser(_id: String!, user: UpdateUserInput!): User!
+    deleteUser(_id: String!): User!
   }
-  `;
+
+  input CreateUserInput {
+    name: String!
+    email: String!
+    age: Int!
+  }
+  
+  input UpdateUserInput {
+    name: String
+    email: String
+    age: Int
+  } 
+`;

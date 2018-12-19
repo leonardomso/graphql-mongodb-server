@@ -5,41 +5,63 @@
   "main": "index.js",
   "scripts": {
     "start": "npm run server",
-    "server": "nodemon --exec babel-node index.js",
-    "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "server": "nodemon --exec babel-node server/index.js"
   },
   "keywords": [
     "graphql",
     "mongodb",
-    "express",
-    "react",
     "boilerplate",
     "server"
   ],
   "author": "Leonardo Maldonado <leonardomso11@gmail.com>",
   "license": "MIT",
-  "dependencies": {
+  "devDependencies": {
     "@babel/cli": "^7.1.2",
     "@babel/core": "^7.1.2",
+    "@babel/node": "^7.0.0",
+    "@babel/plugin-proposal-class-properties": "^7.0.0",
+    "@babel/plugin-proposal-decorators": "^7.0.0",
+    "@babel/plugin-proposal-export-namespace-from": "^7.0.0",
+    "@babel/plugin-proposal-function-sent": "^7.0.0",
+    "@babel/plugin-proposal-json-strings": "^7.0.0",
+    "@babel/plugin-proposal-numeric-separator": "^7.0.0",
     "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
-    "@babel/plugin-transform-arrow-functions": "^7.0.0",
+    "@babel/plugin-proposal-throw-expressions": "^7.0.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.0.0",
+    "@babel/plugin-syntax-import-meta": "^7.0.0",
     "@babel/plugin-transform-async-to-generator": "^7.1.0",
+    "@babel/plugin-transform-runtime": "^7.1.0",
     "@babel/preset-env": "^7.1.0",
-    "@babel/preset-stage-2": "^7.0.0",
-    "body-parser": "^1.18.3",
-    "concurrently": "^4.0.1",
-    "cors": "^2.8.4",
-    "dotenv": "^6.1.0",
-    "express": "^4.16.3",
-    "express-graphql": "^0.6.12",
-    "graphql": "^14.0.2",
-    "graphql-tools": "^4.0.0",
-    "merge-graphql-schemas": "^1.5.7",
-    "mongoose": "^5.3.1",
-    "nodemon": "^1.18.4"
+    "@babel/preset-react": "^7.0.0",
+    "@babel/register": "^7.0.0",
+    "@babel/runtime": "^7.1.2",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-eslint": "^10.0.1",
+    "babel-jest": "^23.6.0",
+    "babel-loader": "^8.0.4",
+    "jest": "^23.6.0",
+    "jest-cli": "^23.6.0",
+    "jest-dom": "^2.1.1",
+    "react-testing-library": "^5.2.3"
   },
-  "devDependencies": {
-    "@babel/node": "^7.0.0"
+  "dependencies": {
+    "concurrently": "^4.1.0",
+    "dotenv": "^6.1.0",
+    "graphql": "^14.0.2",
+    "graphql-subscriptions": "^1.0.0",
+    "graphql-tools": "^4.0.3",
+    "graphql-yoga": "^1.16.7",
+    "merge-graphql-schemas": "^1.5.7",
+    "mongoose": "^5.3.13",
+    "nodemon": "^1.18.6",
+    "uuid": "^3.3.2"
+  },
+  "jest": {
+    "setupFiles": [
+      "<rootDir>/config/tests/jest.config"
+    ],
+    "transform": {
+      "^.+\\.js$": "babel-jest"
+    }
   }
 }

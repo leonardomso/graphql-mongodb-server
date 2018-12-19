@@ -1,37 +1,64 @@
-import User from "../../../models/User";
-import { ObjectID } from "mongodb";
+import User from "../../../server/models/User";
+import Post from "../../../server/models/Post";
+import Comment from "../../../server/models/Comment";
 
 export default {
   Query: {
-    login: async (root, { email, password }) => {
-      return await User.findOne({ email, password }).exec();
-    },
-    user: async (root, { id: _id }) => {
+    user: async (parent, { _id }, context, info) => {
       return await User.findOne({ _id }).exec();
     },
-    users: async () => {
-      const res = await User.find({})
+    users: async (parent, args, context, info) => {
+      const users = await User.find({})
         .populate()
         .exec();
 
-      return res.map(u => ({
-        id: u._id.toString(),
+      return users.map(u => ({
+        _id: u._id.toString(),
+        name: u.name,
         email: u.email,
-        password: u.password,
-        other: u.other
+        age: u.age,
+        posts: u.posts,
+        comments: u.comments
       }));
     }
   },
   Mutation: {
-    addUser: async (root, { email, password }) => {
-      const res = await new User({ email, password }).save();
-      return Object.assign({}, res, { id: res._id.toString() });
+    createUser: async (parent, { user }, context, info) => {
+      const newUser = await new User({
+        name: user.name,
+        email: user.email,
+        age: user.age
+      });
+
+      return new Promise((resolve, reject) => {
+        newUser.save((err, res) => {
+          err ? reject(err) : resolve(res);
+        });
+      });
     },
-    setUserOther: async (root, { id, other }) => {
-      return await User.findOneAndUpdate(
-        { _id: ObjectID(id) },
-        { $set: { other } }
-      ).exec();
+    updateUser: async (parent, { _id, user }, context, info) => {
+      return new Promise((resolve, reject) => {
+        User.findByIdAndUpdate(_id, { $set: { ...user } }, { new: true }).exec(
+          (err, res) => {
+            err ? reject(err) : resolve(res);
+          }
+        );
+      });
+    },
+    deleteUser: async (parent, { _id }, context, info) => {
+      return new Promise((resolve, reject) => {
+        User.findByIdAndDelete(_id).exec((err, res) => {
+          err ? reject(err) : resolve(res);
+        });
+      });
+    }
+  },
+  User: {
+    posts: async ({ _id }, args, context, info) => {
+      return await Post.find({ author: _id });
+    },
+    comments: async ({ _id }, args, context, info) => {
+      return await Comment.find({ author: _id });
     }
   }
 };
