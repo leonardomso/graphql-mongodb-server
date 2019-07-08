@@ -64,8 +64,8 @@ export default {
     author: async ({ author }, args, context, info) => {
       return await User.findById({ _id: author });
     },
-    post: async ({ _id }, args, context, info) => {
-      return await Post.findById(_id);
+    post: async ({ post }, args, context, info) => {
+      return await Post.findById({ _id: post });
     }
   }
 };
