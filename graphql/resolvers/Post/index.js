@@ -20,7 +20,8 @@ export default {
         body: u.body,
         published: u.published,
         author: u.author,
-        comments: u.comments
+        comments: u.comments,
+        date: u.date
       }));
     }
   },
@@ -30,7 +31,8 @@ export default {
         title: post.title,
         body: post.body,
         published: post.published,
-        author: post.author
+        author: post.author,
+        date: post.date
       });
       let createdPost;
       try {
