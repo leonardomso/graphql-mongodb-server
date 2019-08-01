@@ -1,4 +1,9 @@
 export default `
+  type Dates {
+    published: String
+    updated: String
+  }
+  
   type Post {
     _id: ID!
     title: String!
@@ -6,6 +11,7 @@ export default `
     published: Boolean!
     author: User!
     comments: [Comment!]!
+    date: Dates
   }
 
   type Query {
@@ -27,18 +33,25 @@ export default `
     mutation: MutationType!
     post: Post!
   }
+  
+  input DatesInput {
+    published: String
+    updated: String
+  }
 
   input CreatePostInput {
     title: String!
     body: String!
     published: Boolean!
     author: ID!
+    date: DatesInput
   }
   
   input UpdatePostInput {
     title: String
     body: String
     published: Boolean
+    date: DatesInput
   }
 
   enum MutationType {

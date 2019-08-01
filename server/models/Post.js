@@ -29,7 +29,17 @@ const PostSchema = new Schema({
       type: Schema.Types.ObjectId,
       ref: "Comment"
     }
-  ]
+  ],
+  date: {
+    published: {
+      type: Date,
+      default: Date.now()
+    },
+    updated: {
+      type: Date,
+      default: Date.now()
+    }
+  }
 });
 
 export default mongoose.model("Post", PostSchema);
