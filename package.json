@@ -52,7 +52,7 @@
     "graphql-tools": "^4.0.3",
     "graphql-yoga": "^1.16.7",
     "merge-graphql-schemas": "^1.5.7",
-    "mongoose": "^5.3.13",
+    "mongoose": "^5.7.5",
     "nodemon": "^1.18.10",
     "uuid": "^3.3.2"
   },
